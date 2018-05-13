@@ -1,0 +1,70 @@
+<%= javascript_include_tag 'api', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'api', 'data-turbolinks-track': 'reload' %>
+<script>
+    $("#projManager").addClass("menuActiveStatus");
+</script>
+
+
+
+
+
+  <div id="projectAddContent">
+    <%= form_tag("projSave",method: "post") do %>
+        <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+        <div class="" style="border:1px solid #e3e1e1">
+          <div style="margin-top:20px;"></div>
+
+          <!--<div class="form-group height30px">
+            <%= label_tag "项目ID：",nil, class:'col-sm-3 control-label no-padding-right width120px' %>
+            <div class="col-sm-9">
+              <%= text_field_tag "tft_project_id",nil,class:"col-xs-10 col-sm-5",style:"width:550px",value:"#@next_proj_id",readonly:""%>
+            </div>
+          </div>-->
+
+          <div class="form-group  height30px">
+            <%= label_tag "项目名称：",nil, class:'col-sm-3 control-label no-padding-right width120px',style:"width: 75px;height:30px;line-height:30px;margin-left:60px;padding:0;font-weight:normal;" %>
+            <div class="col-sm-9">
+              <%= text_field_tag "tft_project_name",nil,class:"col-xs-10 col-sm-5",style:"width:300px;height:30px;line-height:30px;"  %>
+            </div>
+          </div>
+
+          <div class="form-group  height30px">
+            <%= label_tag "项目编号：",nil, class:'col-sm-3 control-label no-padding-right width120px',style:"width: 75px;height:30px;line-height:30px;margin-left:60px;padding:0;font-weight:normal;" %>
+            <div class="col-sm-9">
+              <%= text_field_tag "tft_project_code",nil,class:"col-xs-10 col-sm-5",style:"width:300px;height:30px;line-height:30px;"  %>
+            </div>
+          </div>
+          <div class="form-group  height30px">
+            <%= label_tag "项目阶段：",nil,
+                          class:'col-sm-3 control-label no-padding-right width120px',style:"width: 75px;height:30px;line-height:30px;margin-left:60px;padding:0;font-weight:normal;"
+            %>
+            <div class="col-sm-5 col-xs-10">
+              <%= select_tag "st_project_current_stage",
+                             raw(%Q!<option value="">请选择</option><option value="1">一期，未上线</option><option value="2">二期，未上线</option><option value="3">三期，未上线</option><option value="9">已发布</option>!),
+                             class:"form-control",
+                             style:"width:300px"
+              %>
+            </div>
+          </div>
+
+          <div class="form-group  height30px">
+            <%= label_tag "项目地址：",nil, class:'col-sm-3 control-label no-padding-right width120px',style:"width: 75px;height:30px;line-height:30px;margin-left:60px;padding:0;font-weight:normal;" %>
+            <div class="col-sm-9">
+              <%= text_field_tag "tft_project_url",nil,class:"col-xs-10 col-sm-5",style:"width:600px;height:30px;line-height:30px;"  %>
+            </div>
+          </div>
+
+
+          
+          <div class="clearfix form-actions height80px " style="    background: #eeeeee;">
+            <div class="col-md-offset-3 col-md-9" style="    line-height: 75px; margin-left: 183px;">
+              <%= submit_tag "保存",class:"btn btn-primary",style:"width: 90px;" %>
+              <%= link_to "取消",{:controller => "proj",:action => "index"},{:class=>"btn btn-default",:style=>"width: 90px;"} %>
+            </div>
+          </div>
+
+        </div>
+    <% end %>
+  </div>
+</div>
+

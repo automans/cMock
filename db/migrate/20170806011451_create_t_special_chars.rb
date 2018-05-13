@@ -1,0 +1,3 @@
+class CreateTSpecialChars < ActiveRecord::Migration[5.1]
+
+end

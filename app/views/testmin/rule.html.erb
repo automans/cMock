@@ -1,0 +1,72 @@
+<%= javascript_include_tag  'testmin', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag    'testmin',  'data-turbolinks-track': 'reload' %>
+<script>
+    $("#testRuleManager").addClass("active");
+</script>
+
+
+<div style="min-height:100px;max-height: 800px; overflow: auto;">
+  <table id="dataRuleListTable" class="table table-hover table-bordered" >
+    <thead style="background: #f5f5f5;">
+      <tr role="row" >
+        <th class="left" style="width: 80px;">规则名称<br>Rule Name</th>
+        <th class="left" style="width: 80px;">执行接口<br>API</th>
+        <th class="left" style="width: 80px;">规则描述<br>Rule Desc</th>
+        <th class="left" style="width: 80px;">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for dataRule in @_data_rules %>
+          <tr style="line-height: 40px;font-size: 13px;" id="dataRuleLable_<%= dataRule.getDataRuleId%>">
+            <td><%= dataRule.getDataRuleName %></td>
+            <td title="<%= @_apiDetailInfo[dataRule['api_id']]%>"><%= dataRule['api_name'] %></td>
+
+            
+            <td style="word-break: break-all;"><%=  case dataRule.getDataFromFlag
+                    when "true" then "{从接口管理获取数据}"
+                    when "false" then dataRule.getDataRuleParamDesc
+                    else "异常"
+                  end %></td>
+            <td style="font-size:12px;" id="roleListOperation">
+              <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                <a class="green" href="javascript:void(0)" onclick="alert(1)">
+                  <i class="icon-pencil bigger-130"></i> 修改
+                </a>
+                <a id="roleDeleteBtn" class="red" href="javascript:void(0)" onclick="testmin.fn.dataRuleDel(<%= dataRule.getDataRuleId %>)">
+                  <i class="icon-trash bigger-130"></i> 删除
+                </a>
+              </div>
+            </td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+<div style=" height: 60px; line-height: 60px; background: #eeeeee;">
+    <%= link_to "增加规则",{:controller => "testmin",:action => "ruleAdd"},{class:"btn",style:"margin-left: 15px;line-height: 18px;background-color: #438eb9 !important;border-color: #438eb9 !important;color: #fff !important;"}%>
+    <div style="float: right; margin-right: 15px;">
+      <nav aria-label="Page navigation" style="line-height: 60px; height: 60px;">
+        <ul class="pagination" style="line-height: 60px; height: 60px;  margin-top: 15px;">
+          <li class="disabled">
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="disabled"><a href="#">1</a></li>
+          <li class="disabled"><a href="#">2</a></li>
+          <li class="disabled"><a href="#">3</a></li>
+          <li class="disabled"><a href="#">4</a></li>
+          <li class="disabled"><a href="#">5</a></li>
+          <li class="disabled">
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+</div>

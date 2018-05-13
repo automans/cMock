@@ -1,0 +1,61 @@
+<div style="display:block">
+    <div style="position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      opacity: .3;
+      z-index: 10000;    display: block;">
+    </div>
+    <div id="dataRuleDetailForm"  style="    width: 350px;
+        height: auto;
+        border: 1px solid #333;
+        
+        display: block;
+      position: fixed;
+            z-index: 10001;
+                box-shadow: 2px 2px 4px #A0A0A0, -2px -2px 4px #A0A0A0;
+      background-color: #fff;    width: 350px;
+      margin-top: -153.5px;
+      margin-left: -175px;
+      left: 566px;
+      top: 324px;
+        ">
+      <div style="margin-left:15px;">
+  
+        <div class="checkbox">
+          1. <label>
+            <input type="checkbox" name="randomGeneration" id="randomGeneration" value="false"> 随机生成
+          </label>
+        </div>
+        <div class="checkbox">
+          2. <label>
+            <input type="checkbox" name="firstCharUpper" id="firstCharUpper" value="false"> 首字符大写
+          </label>
+        </div>
+  
+        <div class="radio">
+          3. <label>
+            <input type="radio" name="repeatable" id="repeatable" value="false">
+            不可重复
+          </label>
+          <label style="margin-left:10px;">
+            <input type="radio" name="repeatable" id="repeatable" value="true">
+            可重复
+          </label>
+        </div>
+        <div style="30px;">
+        4. 限定字符长度 :
+          <input type="textfield" name="strMaxLength" id="strMaxLength" value="" style="width:50px;height:25px;line-height:25px;"> 
+              ~ 
+          <input type="textfield" name="strMinLength" id="strMinLength" value="" placeholder="" style="width:50px;height:25px;line-height:25px;">
+        </div>
+        <div style="height:40px;">
+          <a class="btn btn-info" style="width: 60px;height: 30px;text-align: center;vertical-align: middle;font-size: 12px;margin-top:0px;float:right;margin-right:10px;" href="javascript:void(0)" onclick="testmin.fn.ruleDetailCreat('user_id')">
+            确定
+          </a>
+        </div>
+      </div>
+    </div>
+    </div>

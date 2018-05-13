@@ -1,0 +1,24 @@
+/*nav-style;*/
+.mockNav {height:60px;background: #438eb9;width: 100%;margin:0;padding:0;} .mockNav div{line-height: 55px;color:#fff} .mockNav a{color:#fff}  #mockNavUserInfo a:hover{color:#fff;} #mockNavUserInfo em{font-style:normal;padding:12px;} .mockNav .navLable{font-size: 20px;    padding-left: 10px;} .mockNav #mockNavLable{float: left;} .mockNav #mockNavUserInfo{float: right;margin-right: 15px;font-size: 14px;}
+/*menu-tab-style*/
+/* .mockMenuTab {height:40px;width: 100%;border-bottom: 2px solid #e8e4e4;}
+.mockMenuTab ul{height:40px; margin-left: 150px;}
+.mockMenuTab ul li{line-height: 40px;height:40px;float: left;list-style-type: none;width: 100px;font-size: 16px;text-align: center;}
+.mockMenuTab ul li:hover{background: #438eb9;cursor: pointer;color:#fff}
+.menuActiveStatus{background: #438eb9;color:#fff} */
+
+#mockMainContainer {height:100%;}
+#mockMainContainerSide {width:150px;border-right: 1px solid #e8e4e4;height:100%;float: left;}
+/* #mockMainContainerSide ul li:hover{background: #438eb9;cursor: pointer;color:#fff;} */
+#mockMainContainerSide a{text-decoration: none;}
+/* #mockMainContainerSide ul li{line-height: 40px;height:40px;list-style-type: none;font-size: 16px;margin: 0;padding-left: 10px;} */
+#mockMainContainerContent {margin-left: 170px;width:88%;height: 100%;margin-top: 20px;}
+.linkDisable {pointer-events:none}
+
+.hidden_opertion {display: none}
+#ruleAddContent {width:100%;height: 100%;}
+.nav-tabs a{color:#a79f9f;font-size:16px;}
+.dataRuleDetailForm {width: 350px;height: auto;border: 1px solid #333;display: block;position: fixed;z-index: 10001;box-shadow: 2px 2px 4px #A0A0A0, -2px -2px 4px #A0A0A0;background-color: #fff;margin-top: -153.5px;left: 566px;top: 324px;}
+.dataRuleListDetailForm {width: 350px;height: auto;border: 1px solid #333;display: block;position: fixed;z-index: 10001;box-shadow: 2px 2px 4px #A0A0A0, -2px -2px 4px #A0A0A0;background-color: #fff;margin-top: -153.5px;left: 566px;top: 324px;}
+#member_tr_th_style th {text-align: center;}
+.center {text-align: center;}

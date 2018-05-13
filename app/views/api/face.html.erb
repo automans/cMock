@@ -1,0 +1,112 @@
+<%= javascript_include_tag  'api', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag    'api',  'data-turbolinks-track': 'reload' %>
+<script>
+    $("#apiFaceManager").addClass("active");
+</script>
+
+<fieldset>
+  <legend>
+    <%= @interfaceProjInfo.getProjName %>
+  </legend>
+
+  <!--<div>
+      <lable style="height: 30px;line-height: 30px;font-size: 14px;">项目: <%= @interfaceProjInfo.getProjName %> </lable>
+  </div>-->
+  <div style="min-height:100px;max-height: 800px; overflow: auto;">
+      <table id="apiListTable" class="table table-hover  table-bordered" >
+          <thead style="background: #f5f5f5;">
+              <tr>
+                <!--<th></th>-->
+                <th style="min-width:200px;">接口名称<br>API Name</th>
+                <th style="min-width:200px;">所属系统<br>Belong To</th>
+                <th style="min-width:130px;">参数管理<br>Parameters Edit</th>
+                <th style="min-width:100px;">数据管理<br>Data Edit</th>
+                <th style="min-width:200px;">最近执行时间<br>Last Execution Time</th>
+                <th style="min-width:180px;">最近执行人员<br>Last Executor </th>
+                <th style="min-width:150px;">执行次数<br>Execute Count</th>
+
+                <th style="min-width:120px;"></th>
+              </tr>
+          </thead>
+          <tbody>
+
+                <% for interface in @interfaceList %>
+                <tr id="interfaceAPI_<%= interface.getApiId %>">
+                  <!--
+                  <td>
+                      <%= case interface.getApiExecStatus
+                            when 1 then
+                              link_to('执行通过',{},{:class=>'btn btn-minier btn-success',:href=>'#'})
+                            when 2 then
+                              link_to('执行失败',{},{:class=>'btn btn-minier btn-danger',:href=>'#'})
+                            when 3 then
+                              link_to('执行中',{},{:class=>'btn btn-minier btn-warning icon-refresh',:href=>'#'})
+                            when 0 then
+                              link_to('开始执行',{},{:class=>'btn btn-minier icon-refresh',:href=>'#'})
+                            else link_to('开始执行',{},{:class=>'btn btn-minier icon-refresh',:href=>'#'})
+                          end %>
+                  </td>-->
+                  <td>
+                    <%= interface.getApiName %>
+                  </td>
+                  <td>
+                    <%= interface.getApiSystemName %>
+                  </td>
+
+                  <td style="text-align:center;">
+                      <%= link_to(" 编辑",{:controller =>'api',:action => 'paramEdit', :api_id=>interface.getApiId, :proj_id=>@interfaceProjInfo},{:class=>'green icon-pencil bigger-130',:style=>'font-size:12px;'})%>
+                  </td>
+                  <td style="text-align:center;">
+                    <%= link_to(" 编辑",{:controller =>'api',:action => 'dataEdit', :api_id=>interface.getApiId, :proj_id=>@interfaceProjInfo},{:class=>'green icon-pencil bigger-130',:style=>'font-size:12px;'})%>
+                  </td>
+                  <td><%= interface.getApiLastExecTime %></td>
+                  <td><%= interface.getApiExecUserName %></td>
+                  <td><%= interface.getApiExecCount %></td>
+
+                  <td>
+                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                      <a class="blue" href="/api/infoView?proj_id=<%= @interfaceProjInfo.getProjId%>&api_id=<%= interface.getApiId%>">
+                        <i class="icon-info bigger-130" style="font-size:12px"> 查看</i>
+                      </a>
+                      <a class="green" href="#">
+                        <i class="icon-pencil bigger-130" style="font-size:12px"> 修改</i>
+                      </a>
+                      <a class="red" href="javascript:void(0)" onclick="apiJs.fn.projApiDel(<%= interface.getApiId %>)">
+                        <i class="icon-pencil bigger-130"  style="font-size: 12px;"> 删除</i>
+                      </a>
+                    </div>
+
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          
+      </table>
+  </div>
+</fieldset>
+
+<div style=" height: 60px; line-height: 60px; background: #eeeeee;">
+    <%= link_to "增加接口",{:controller => "api",:action => "ifaceAdd",:proj_id=>@interfaceProjInfo.getProjId },{class:"btn",style:"margin-left: 15px;line-height: 18px;background-color: #438eb9 !important;border-color: #438eb9 !important;color: #fff !important;"}%>
+    <%= link_to "返回",{:controller => "api",:action => "index"},{:class=>"btn btn-default",:style=>"width: 90px;"} %>
+    <div style="float: right; margin-right: 15px;">
+      <nav aria-label="Page navigation" style="line-height: 60px; height: 60px;">
+        <ul class="pagination" style="line-height: 60px; height: 60px;  margin-top: 15px;">
+          <li class="disabled">
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="disabled"><a href="#">1</a></li>
+          <li class="disabled"><a href="#">2</a></li>
+          <li class="disabled"><a href="#">3</a></li>
+          <li class="disabled"><a href="#">4</a></li>
+          <li class="disabled"><a href="#">5</a></li>
+          <li class="disabled">
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+</div>

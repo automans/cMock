@@ -1,0 +1,88 @@
+<%= javascript_include_tag  'testmin', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag    'testmin',  'data-turbolinks-track': 'reload' %>
+<script>
+    $("#testRuleManager").addClass("active");
+
+</script>
+
+
+ <div id="ruleAddContent">
+    <%= form_tag("ruleSave",method: "post") do %>
+        <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+        <div class="" style="border:1px solid #e3e1e1" id="ruleAddTableList">
+          <div style="margin-top:20px;"></div>
+
+          <div class="form-group  height30px">
+            <%= label_tag "规则名称：",nil, class:'col-sm-1 control-label', style:"width: 75px;height:30px;line-height:30px;margin-left:60px;padding:0;font-weight:normal;" %>
+            <div class="col-sm-9">
+              <%= text_field_tag "tft_data_rule_name",nil,class:"col-xs-10 col-sm-5",style:"width:300px;height:30px;line-height:30px;"  %>
+            </div>
+          </div>
+         
+         <div class="form-group  height30px">
+            <%= label_tag "所属项目：",nil,
+                    class:'col-sm-1 control-label no-padding-right width120px', style:"width: 75px;height:30px;line-height:30px;margin-left:60px;padding:0;font-weight:normal;"
+            %>
+            <div class="col-sm-5 col-xs-10">
+              <%= select_tag "st_system_id",
+                             raw("#{@project_select_list}"),
+                             class:"form-control",
+                             style:"width:300px"
+              %>
+            </div>
+          </div>
+          
+          <div class="form-group  height30px">
+            <%= label_tag "所属系统：",nil,
+                    class:'col-sm-1 control-label no-padding-right width120px', style:"width: 75px;height:30px;line-height:30px;margin-left:60px;padding:0;font-weight:normal;"
+            %>
+            <div class="col-sm-5 col-xs-10" id="st_api_system_name_list">
+              <%= select_tag "st_api_sys_name",
+                             raw("<option value="">请选择</option>"),
+                             class:"form-control",
+                             style:"width:300px"
+              %>
+            </div>
+          </div>
+          
+          <div class="form-group  height30px">
+            <%= label_tag "接口名称：",nil,
+                    class:'col-sm-1 control-label no-padding-right width120px', style:"width: 75px;height:30px;line-height:30px;margin-left:60px;padding:0;font-weight:normal;"
+            %>
+            <div class="col-sm-5 col-xs-10"  id="st_api_name_list">
+              <%= select_tag "st_api_id",
+                             raw("<option value="">请选择</option>"),
+                             class:"form-control",
+                             style:"width:300px;float:left;"
+              %>
+              <div class="checkbox" style="float:left;margin-left:15px;">
+                <label><input type="checkbox" name="dataFromApiSystem" id="dataFromApiSystem" value="true" onclick="testmin.fn.getDataFromApiSystem()"> 接口源数据 </label>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        
+
+        <div class="clearfix form-actions height80px " style="background: #eeeeee;">
+          <div class="col-md-offset-3 col-md-9" style="line-height: 75px; margin-left: 183px;">
+            <%= submit_tag "保存",class:"btn btn-primary",style:"width: 90px;" %>
+            <%= link_to "取消",{:controller => "testmin",:action => "rule"},{:class=>"btn btn-default",:style=>"width: 90px;"} %>
+          </div>
+        </div>
+
+    <% end %>
+
+    <div id="dataRuleDetailPopUp" style="display:none">
+    <div style="position: fixed; top: 0; left: 0; width: 88%; height: 100%; background: #000; opacity: .3; z-index: 10000;    display: block;margin-top: 125px;margin-left: 170px;">
+    </div>
+    
+  </div>
+
+
+  </div>
+
+  
+
+</div>

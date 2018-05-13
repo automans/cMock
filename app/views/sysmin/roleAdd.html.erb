@@ -1,0 +1,34 @@
+<%= javascript_include_tag 'member', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'member', 'data-turbolinks-track': 'reload' %>
+<script>
+    $("#roleManager").addClass("active");
+</script>
+
+
+
+  <div id="roleAddContent">
+    <%= form_tag("roleSave",method: "post") do %>
+        <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+        <div class="" style="border:1px solid #e3e1e1">
+          <div style="margin-top:20px;"></div>
+
+          <div class="form-group  height30px">
+            <%= label_tag "角色名称：",nil, class:'col-sm-1 control-label', style:"width: 105px;" %>
+            <div class="col-sm-9">
+              <%= text_field_tag "tft_role_name",nil,class:"col-xs-10 col-sm-5",style:"width:300px" %>
+            </div>
+          </div>
+
+         
+
+          <div class="clearfix form-actions height80px " style="    background: #eeeeee;">
+            <div class="col-md-offset-3 col-md-9" style="    line-height: 75px; margin-left: 183px;">
+              <%= submit_tag "保存",class:"btn btn-primary",style:"width: 90px;" %>
+              <%= link_to "取消",{:controller => "sysmin",:action => "role"},{:class=>"btn btn-default",:style=>"width: 90px;"} %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+

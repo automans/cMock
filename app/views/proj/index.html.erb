@@ -1,0 +1,83 @@
+<%= javascript_include_tag 'api', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'api', 'data-turbolinks-track': 'reload' %>
+<script>
+    $("#projManager").addClass("menuActiveStatus");
+</script>
+
+
+<div style="min-height:100px;max-height: 800px; overflow: auto;">
+    <table id="projListTable" class="table table-hover table-bordered" >
+        <thead style="background: #f5f5f5;">
+              <tr role="row">
+                <th>项目名称<br>Project Name</th>
+                <th>项目编号<br>Project Code</th>
+                <th>项目阶段<br>Project Stage</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+            <% for proj in @projList %>
+                <tr  class="odd"  id="projectId_<%= proj.getProjId %>">
+                  <td>
+                    <!--<a href="javascript:void()" onclick="api.fn.test(<%= proj.getProjId %>)"><%= proj.getProjName %></a> -->
+                    <%= proj.getProjName %> <!--<%= link_to(proj.getProjName,{:controller =>'api',:action => 'face', :proj_id=>proj.getProjId})%>-->
+                  </td>
+                  <td><%= proj.getProjCode %></td>
+                  <td><%= case proj.getProjStage
+                            when 1 then "一期，未发布"
+                            when 2 then "二期，未发布"
+                            when 3 then "三期，未发布"
+
+                            when 9 then "已发布"
+                            else "-"
+                          end %></td>
+                  <td class=" ">
+                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                      <a class="green" href="javascript:void(0)" onclick="apiJs.fn.projEdit(<%= proj.getProjId %>)">
+                        <i class="icon-pencil bigger-130"  style="font-size: 12px;"> 修改</i>
+                      </a>
+                      <a class="green" href="javascript:void(0)" onclick="apiJs.fn.projDel(<%= proj.getProjId %>)">
+                        <i class="icon-pencil bigger-130"  style="font-size: 12px;"> 删除</i>
+                      </a>
+                      <!--<div id="projectDelButton" onclick="apiJs.fn.projDel(<% proj.getProjId %>)">
+                       <% button_to " 删除", {:controller =>'api',:action => 'projDel', :proj_id=>proj.getProjId}, remote: true,:method => "POST", form: { "data-type" => "json" } %>
+                      </div>-->
+                    </div>
+                  </td>
+                </tr>
+            <% end %>
+
+            </tbody>
+          </table>
+</div>
+
+
+
+
+
+
+<div style=" height: 60px; line-height: 60px; background: #eeeeee;">
+    <%= link_to "增加项目",{:controller => "proj",:action => "projAdd"},{class:"btn",style:"margin-left: 15px;line-height: 18px;background-color: #438eb9 !important;border-color: #438eb9 !important;color: #fff !important;"}%>
+    <div style="float: right; margin-right: 15px;">
+      <nav aria-label="Page navigation" style="line-height: 60px; height: 60px;">
+        <ul class="pagination" style="line-height: 60px; height: 60px;  margin-top: 15px;">
+          <li class="disabled">
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="disabled"><a href="#">1</a></li>
+          <li class="disabled"><a href="#">2</a></li>
+          <li class="disabled"><a href="#">3</a></li>
+          <li class="disabled"><a href="#">4</a></li>
+          <li class="disabled"><a href="#">5</a></li>
+          <li class="disabled">
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+</div>

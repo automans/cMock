@@ -1,0 +1,132 @@
+<%= javascript_include_tag 'api', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'api', 'data-turbolinks-track': 'reload' %>
+<script>
+    $("#apiFaceManager").addClass("active");
+</script>
+
+
+  <div id="interfaceAddContent">
+    <%= form_tag("ifaceSave",method: "post") do %>
+        <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+    <div class="form-horizontal" style="border:1px solid #e3e1e1;">
+      <div style="margin-top:20px;"></div>
+
+      <div style="border-bottom:1px solid #e3e1e1;">
+        <div class="form-group height30px;" style="display: none">
+          <%= label_tag "项目ID：",nil, class:'col-sm-3 control-label no-padding-right width120px'%>
+          <div class="col-sm-9">
+            <%= text_field_tag "tft_project_id",nil,class:"col-xs-10 col-sm-5",style:"width:550px",value:@interfaceProjInfo.getProjId,readonly:""%>
+          </div>
+        </div>
+        <div class="form-group height30px">
+          <%= label_tag "项目名称：",nil, class:'col-sm-3 control-label no-padding-right width120px' %>
+          <div class="col-sm-9">
+            <%= text_field_tag "tft_project_name",nil,class:"col-xs-10 col-sm-5",style:"width:550px;    background: #f8f8fb;",value:@interfaceProjInfo.getProjName,readonly:""%>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:10px;"></div>
+
+      <!--<div class="form-group  height30px">
+        <label class="col-sm-3 control-label no-padding-right width120px" for="form-field-1"> 接口ID :</label>
+
+        <div class="col-sm-9">
+          <%= text_field_tag "tft_iface_id",nil,class:"col-xs-10 col-sm-5",style:"width:550px",value:"#@next_api_id",readonly:""%>
+        </div>
+      </div>-->
+      <div class="form-group  height30px">
+        <label class="col-sm-3 control-label no-padding-right width120px" for="form-field-1"> 接口名称：</label>
+        <div class="col-sm-9">
+          <%= text_field_tag "tft_iface_name",nil,class:"col-xs-10 col-sm-5",style:"width:550px" %>
+        </div>
+      </div>
+      <!--<div style="margin-left: 123px;height: 35px;margin-bottom:10px;">
+        <label class="radio-inline">
+          <%= radio_button_tag "apiType_inlineRadio1","httpOption" %> HTTP请求
+        </label>
+        <label class="radio-inline">
+          <%= radio_button_tag "apiType_inlineRadio2","webServiceOption" %> WebService(SOAP)
+        </label>
+       </div>-->
+      <div style="margin-left: 140px;height: 35px;margin-bottom:10px;">
+        <label class="radio-inline">
+          <input type="radio" name="inlineRadioOptions" id="apiType_inlineRadio1" value="httpOption"> HTTP请求
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="inlineRadioOptions" id="apiType_inlineRadio2" value="webServiceOption"> WebService(SOAP)
+        </label></div>
+
+
+      <div id="httpOptionStuff" class="optionHiddenForApi">
+          <div class="form-group  height30px">
+          <label class="col-sm-3 control-label no-padding-right width120px" for="form-field-1"> 协议 :</label>
+          <!--<div class="col-sm-9">
+            <%= text_field_tag "tft_api_protocol",nil,class:"col-xs-10 col-sm-5",style:"width:550px" %>
+          </div>-->
+
+          <div class="col-sm-9">
+            <%= select_tag "tft_api_protocol",
+                           raw(%Q!<option value="">&nbsp;</option><option value="HTTP">HTTP</option><option value="TCP/IP">TCP/IP</option>!),
+                           class:"form-control",
+                           style:"width:275px"
+            %>
+          </div>
+        </div>
+        <div class="form-group  height30px">
+          <label class="col-sm-3 control-label no-padding-right width120px" for="form-field-1"> 方法 :</label>
+          <div class="col-sm-9">
+            <%= select_tag "st_protocol_name",
+                           raw(%Q!<option value="">&nbsp;</option><option value="GET">GET</option><option value="POST">POST</option>!),
+                           class:"form-control",
+                           style:"width:275px"
+            %>
+          </div>
+        </div>
+        <div class="form-group  height30px">
+          <label class="col-sm-3 control-label no-padding-right width120px" for="form-field-1"> 接口地址 :</label>
+
+          <div class="col-sm-9">
+            <%= text_field_tag "tft_iface_url",nil,class:"col-xs-10 col-sm-5",style:"width:550px" %>
+          </div>
+        </div>
+      </div>
+      <div id="WebServiceStuff"  class="optionHiddenForApi">
+        <div class="form-group  height30px">
+          <label class="col-sm-3 control-label no-padding-right width120px" for="form-field-1"> WSDL Url :</label>
+
+          <div class="col-sm-9">
+            <%= text_field_tag "tft_wsdl_url",nil,class:"col-xs-10 col-sm-5",style:"width:550px" %>
+          </div>
+
+        </div>
+        <!--<label class="col-sm-3 control-label no-padding-right width120px" for="form-field-1"></label>
+        <div  class="form-group  height30px" style="margin-top: -16px;margin-bottom: 0px;">
+          <%= link_to "载入WSDL",{},{href:"javascript:void()",onclick:"alert(1)",class:"inportWSDLBtn"}%>
+        </div>-->
+        <div class="form-group ">
+          <label class="col-sm-3 control-label no-padding-right width120px" for="form-field-1"> SOAP/XML:</label>
+          <div class="col-sm-9">
+            <%= text_area_tag "soap_xml_data",nil,{class:"form-control",style:"font-size:10px;width:550px;height:220px;overflow-x:hidden;overflow-y:auto;"} %>
+          </div>
+        </div>
+
+      </div>
+      <div class="clearfix form-actions height80px " style="background: #eeeeee;">
+        <div class="col-md-offset-3 col-md-9"  style="line-height: 75px; margin-left: 183px;">
+          <%= submit_tag "保存",class:"btn btn-info",style:"width: 90px;" %>
+          <%= link_to "取消",{:controller => "api",:action => "face",:proj_id=>@interfaceProjInfo.getProjId },{:class=>"btn btn-default",:style=>"width: 90px;"} %>
+        </div>
+      </div>
+
+   
+
+    </div>
+    <% end %>
+  </div>
+
+
+
+
+
+</div>
+

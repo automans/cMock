@@ -1,0 +1,2 @@
+class TApiDataLog < ApplicationRecord
+end

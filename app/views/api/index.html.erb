@@ -1,0 +1,56 @@
+<%= javascript_include_tag 'api', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'api', 'data-turbolinks-track': 'reload' %>
+<script>
+    $("#apiFaceManager").addClass("active");
+</script>
+
+<div>
+    <table id="apiListTable" class="table table-hover  table-bordered" >
+        <thead style="background: #f5f5f5;">
+            <tr>
+            <th>项目名称<br>Project Name</th>
+            <th>接口总数<br>Api Count</th>
+            <th>执行次数<br>Execute Count</th>
+            <th>最后执行时间<br>Execution Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for proj in @projList %>
+            <tr  id="projectId_<%= proj.getProjId %>">
+                <td>
+                <%= link_to(proj.getProjName,{:controller =>'api',:action => 'face', :proj_id=>proj.getProjId})%>
+                </td>
+                <td><%= @projApiCount[proj.getProjId] %></td>
+                <td><%= proj.getProjExecCount %></td>
+                <td><%= proj.getProjLastExecTime.to_s[0,19] %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+
+<div style=" height: 60px; line-height: 60px; background: #eeeeee;">
+    
+    <div style="float: right; margin-right: 15px;">
+      <nav aria-label="Page navigation" style="line-height: 60px; height: 60px;">
+        <ul class="pagination" style="line-height: 60px; height: 60px;  margin-top: 15px;">
+          <li class="disabled">
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="disabled"><a href="#">1</a></li>
+          <li class="disabled"><a href="#">2</a></li>
+          <li class="disabled"><a href="#">3</a></li>
+          <li class="disabled"><a href="#">4</a></li>
+          <li class="disabled"><a href="#">5</a></li>
+          <li class="disabled">
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+</div>
+

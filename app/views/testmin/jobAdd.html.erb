@@ -1,0 +1,95 @@
+<%= javascript_include_tag  'testmin', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag    'testmin',  'data-turbolinks-track': 'reload' %>
+<script>
+    $("#testDataManager").addClass("active");
+
+</script>
+
+
+ <div id="jobAddContent">
+    <%= form_tag("jobSave",method: "post") do %>
+        <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+        <div class="" style="border:1px solid #e3e1e1" id="jobAddTableList">
+          <div style="margin-top:20px;"></div>
+
+          <div class="form-group  height30px">
+            <%= label_tag "任务名称：",nil, class:'col-sm-1 control-label', style:"width: 75px;height:30px;line-height:30px;margin-left:60px;padding:0;font-weight:normal;" %>
+            <div class="col-sm-9">
+              <%= text_field_tag "tft_job_name",nil,class:"col-xs-10 col-sm-5",style:"width:300px;height:30px;line-height:30px;"  %>
+            </div>
+          </div>
+         
+          <div class="form-group  height30px">
+            <%= label_tag "所属项目：",nil,
+                    class:'col-sm-1 control-label no-padding-right width120px', style:"width: 75px;height:30px;line-height:30px;margin-left:60px;padding:0;font-weight:normal;"
+            %>
+            <div class="col-sm-5 col-xs-10" id="st_proj_name_list">
+              <%= select_tag "st_job_project_id",
+                             raw("#{@project_select_list}"),
+                             class:"form-control",
+                             style:"width:300px"
+              %>
+            </div>
+          </div>
+          
+          <div class="form-group  height30px" style="height:140px;">
+            <%= label_tag "规则明细：",nil,
+                    class:'col-sm-1 control-label no-padding-right width120px', style:"width: 75px;height:30px;line-height:30px;margin-left:60px;padding:0;font-weight:normal;"
+            %>
+            <div class="col-sm-9" style="border: 1px solid #c4c4c4;width:300px;min-height:100px;max-height:140px;margin-left:15px;cursor: pointer;overflow-y:scroll;" id="job_rule_list">
+              <!--<%= text_area_tag "job_rule_list",nil,{class:"form-control",style:"cursor: pointer;font-size:10px;width:300px;height:140px;overflow-x:hidden;overflow-y:auto;",readonly:""} %>-->
+              
+              <!--<label style="word-wrap:break-word">1. NAMERULE_NAMERULE_NAMERULE_NAME_NAMERULME</label> -->
+              
+
+            </div>
+            <input type="hidden" id="data_rule_ids_list" name="data_rule_ids_list" value="">
+          </div>
+          
+        </div>
+
+        
+
+        <div class="clearfix form-actions height80px " style="background: #eeeeee;">
+          <div class="col-md-offset-3 col-md-9" style="line-height: 75px; margin-left: 183px;">
+            <%= submit_tag "保存",class:"btn btn-primary",style:"width: 90px;" %>
+            <%= link_to "取消",{:controller => "testmin",:action => "jobs"},{:class=>"btn btn-default",:style=>"width: 90px;"} %>
+          </div>
+        </div>
+
+    <% end %>
+
+    <div id="ruleListPopUp" style="display:none">
+      <div style="position: fixed; top: 0; left: 0; width: 88%; height: 100%; background: #000; opacity: .3; z-index: 10000;    display: block;margin-top: 125px;margin-left: 170px;">
+      </div>
+      <div id="dataRuleListDetailForm" class="dataRuleListDetailForm" style="width:450px !important;">
+        <div style="border-bottom: 1px solid #b6bfc9;">
+          <label style="word-wrap:break-word;padding: 10px;color:red;">规则的执行顺序以选择的顺序为准！请先确认任务执行再做规则选择，谢谢！</label> 
+        </div>
+        <div style="padding:0px 5px 0px 20px;overflow-y:scroll;overflow-x:hidden;max-height:240px;border-bottom: 1px solid #b6bfc9;" id="dataRuleList"> 
+          <div class="checkbox">
+            <label style="word-wrap:break-word"><input type="checkbox" name="dataRule_ruleId" id="dataRule_ruleId"> MERULE_NAMERULE_NAMERULEMERULE_NAMERULE_NAMERULE_NAMERULE_NAMEMERULE_NAMERULE_NAMERULE_NAMERULE_NAME_NAMERULE_NAME </label> 
+          </div>
+          
+        </div>
+        
+        <div style="height:40px; float:right;margin-top:10px; margin-right: 20px;"> 
+          <a class="btn btn-info" style="height:30px;" href="javascript:void(0)" onclick="testmin.fn.ruleListDetailFormHidden()">
+            确定
+          </a>
+          <a class="btn btn-default" style="height:30px;" href="javascript:void(0)" onclick="testmin.fn.ruleListSelectValueReset()">
+            重置
+          </a>
+        </div>
+      </div>
+
+    </div>
+    
+  </div>
+
+
+  </div>
+
+  
+
+</div>

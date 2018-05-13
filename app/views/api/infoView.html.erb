@@ -1,0 +1,168 @@
+<%= javascript_include_tag  'api', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag    'api',  'data-turbolinks-track': 'reload' %>
+
+<script>
+   $("#apiFaceManager").addClass("active");
+</script>
+
+<fieldset>
+  <legend>
+    <%= @__proj_info.getProjName %>
+  </legend>
+
+
+					
+<div id="interfaceInfoView">
+    <div style="border:1px solid #e3e1e1;">
+        <div style="margin-top:20px;"></div>
+        <div style="border-bottom:1px solid #e3e1e1;">
+          <!--<div class="form-group height30px">
+            <label class="col-sm-1 control-label no-padding-right" style="line-height: 25px;"> 所属系统 :</label>
+            <div class="col-sm-1">
+              <%= text_field_tag "tft_interface_name",nil,class:"",style:"width:400px;background: #f9f9f9;",value:@__proj_info.getProjName,readonly:""%>
+            </div>
+          </div>-->
+          <div class="form-group height30px">
+            <label class="col-sm-1 control-label no-padding-right" style="line-height: 25px;min-width: 101px;"> 接口名称 :</label>
+            <!--<div class="col-sm-1">-->
+              <%= text_field_tag "tft_interface_name",nil,class:"",style:"width:400px;background: #f9f9f9;",value:@__api_info.getApiName,readonly:""%>
+            <!--</div>-->
+          </div>
+          <div class="form-group height30px">
+            <label class="col-sm-1 control-label no-padding-right" style="line-height: 25px;min-width: 101px;"> 接口地址 :</label>
+            <!--<div class="col-sm-1">-->
+              <%= text_field_tag "tft_interface_name",nil,class:"",style:"width:600px;background: #f9f9f9;",value:@__api_info.getApiUrl,readonly:""%>
+            <!--</div>-->
+          </div>
+        </div>
+        
+        
+        <div >
+          <fieldset>
+            <legend>&nbsp;接口参数描述</legend>
+            <div style="overflow:auto;max-height: 390px;">
+              <table  class="table table-hover   table-bordered"   style="white-space:nowrap;font-size:12px;">
+                <thead  style="background: #f5f5f5;">
+                  <tr role="row">
+                    <th style="text-align:center;">序号<br>No.</th>
+                    <th class="left">参数名<br>Param Name</th>
+                    <th class="left">标准值<br>Normal Value</th>
+                    <th class="left">最大字长<br>Max Length</th>
+                    <th class="left">最小字长<br>Min Length</th>
+                    <th class="left">是否必填？<br>Is Required?</th>
+                    <th class="left">是否为数字？<br>Is Number?</th>
+                    <th class="left">是否含特殊字符？<br>Special Char?</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                
+                <% for _api_param_info_ in @__api_param_info  %>
+                  <tr>
+                    <td style="text-align:center;"><%= @_param_index %></td>
+                    <td class="left"><%= _api_param_info_.getApiParamName %></td>
+                    <td class="left"><%= _api_param_info_.getApiParamValue %></td>
+                    <td class="left"><%= _api_param_info_.getApiParamMaxLength %></td>
+                    <td class="left"><%= _api_param_info_.getApiParamMinLength %></td>
+                    <td class="left"><%= case _api_param_info_.getApiParamRequireFlag
+                                      when 1 then "Yes"
+                                      when 2 then "No"
+                                      else "-"
+                                  end %></td>
+                    <td class="left"><%= case _api_param_info_.getApiParamNumberFlag
+                                    when 1 then "Yes"
+                                    when 2 then "No"
+                                    else "-"
+                                  end %></td>
+                    <td class="left"><%= case _api_param_info_.getApiParamSpecialCharFlag
+                                  when 1 then "Yes"
+                                    when 2 then "No"
+                                    else "-"
+                                  end %></td>
+                  </tr>
+                  <% @_param_index = @_param_index + 1 %>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+          </fieldset>
+          <!--<label style="width: 100%; line-height:30px;background-color: #fff;">&nbsp接口参数描述：</label>-->
+        </div>
+        <div>
+          <fieldset>
+            <legend>&nbsp;接口测试数据描述</legend>
+            <!--<label style="width: 100%;line-height:30px; background-color: #e8e2e2;">&nbsp接口测试数据描述：</label>-->
+            <div style="overflow:auto;max-height: 680px;">
+              <table  class="table table-hover table-bordered"  style="white-space:nowrap;font-size:12px;">
+                <thead  style="background: #f5f5f5;">
+                  <tr>
+                    <th style="text-align:center;">序号<br>No.</th>
+                    <th>案列标题<br>CaseTitle</th>
+                    <% for apiParam in @__api_param_info %>
+                    <th style="color:#e00f2a;font-weight:500;" title=<%= apiParam.getApiParamTitle%>><%= apiParam.getApiParamName %></th>
+                    <% end %>
+                    <th class="left">响应代码<br>ResponseCode</th>
+                    <th class="left">响应消息<br>reponseMsg</th>
+                    <th class="left">说明<br>Remarks</th>
+                    <th class="left">更新日期<br>UpdateTime</th>
+                  </tr>
+                </thead>		
+                <tbody>
+
+                <% for param_data in @__api_data_info %>
+                
+                  <tr style=<%= param_data['status']==1 ? "text-decoration:line-through;background-color:yellow;color:black;" : "" %>>
+                    <td style="text-align:center;"><%= @_param_data_index %></td>
+                    <td class=""><%= param_data['case_title'] %></td>
+                  
+                    <% for apiParam in @__api_param_info %>
+                      <td class=""><%= param_data[apiParam.getApiParamName] %></td>
+                    <% end %>
+                    <td class="left"><%= param_data['response_code'] %></td>
+                    <td class="left"><%= param_data['response_msg'] %></td>
+                    <td class="left"><%= param_data['remarks'] %></td>
+                    <td class="left"><%= param_data['updated_at'].to_s[0,16] %></td>
+                  </tr>
+                  <% @_param_data_index = @_param_data_index + 1 %>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="float: right; margin-right: 15px;">
+              <nav aria-label="Page navigation" style="line-height: 60px; height: 60px;">
+                <ul class="pagination" style="line-height: 60px; height: 60px;  margin-top: 15px;">
+                  <li class="disabled">
+                    <a href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="disabled"><a href="#">1</a></li>
+                  <li class="disabled"><a href="#">2</a></li>
+                  <li class="disabled"><a href="#">3</a></li>
+                  <li class="disabled"><a href="#">4</a></li>
+                  <li class="disabled"><a href="#">5</a></li>
+                  <li class="disabled">
+                    <a href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </fieldset>
+        </div>
+        
+        
+        
+        
+
+        <div class="clearfix form-actions height80px " style="margin-bottom:60px;background: #eeeeee;">
+          <div class="col-md-offset-3 col-md-9" style="    line-height: 75px; margin-left: 183px;">
+            <%= link_to "返回",{:controller => "api",:action => "face",:proj_id=>@__proj_info.getProjId},{:class=>"btn btn-default",:style => "width:90px"} %>
+          </div>
+        </div>
+        
+    </div>
+</div>
+</fieldset>

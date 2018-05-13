@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>cMock - 控制台，全方位作业 </title>
+  <%= stylesheet_link_tag    'application',  'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag  'application', 'data-turbolinks-track': 'reload' %>
+
+</head>
+
+<body style="background-color: #fff">
+
+<div class="mockNav">
+  <div id="mockNavLable">
+    <label class="navLable"> cMock 测试管理系统</label>
+  </div>
+
+  <div id="mockNavUserInfo">
+    <span>胡伟华</span>
+    <em>|</em><span><a href="#">退出</a></span>
+  </div>
+</div>
+
+<div >
+  <nav role="navigation">
+    <ul  class="nav nav-tabs">
+      <li role="presentation" id="menuIndexTab"><a href="/">首页</a></li>
+      <li id="menuUserTab"><a href="/sysmin">系统管理</a></li>
+      <li id="menuProjTab"><a href="/proj">项目管理</a></li>
+      <li id="menuTestTab"><a href="/testmin">测试管理</a></li>
+      <li id="menuCaseTab"><a href="#">用例管理</a></li>
+      <li id="menuApiTab" class="active"><a href="/api" style="color:#000;">接口管理</a></li>
+    </ul>
+  </nav>
+</div>
+
+<div id="mockMainContainer">
+  <div id="mockMainContainerSide" class="list-group">
+        <a class="list-group-item" href="/api" id="apiFaceManager">接口维护</a>
+        <a href="/scripts" class="list-group-item" id="scriptManager">脚本维护</a>
+        <a href="javascript:void(0)" onclick="alert(1)"  class="list-group-item">接口执行</a>
+        <a href="javascript:void(0)" onclick="alert(1)"  class="list-group-item">报告打印</a>
+  </div>
+
+  <div id="mockMainContainerContent">
+      <%= yield %>
+  </div>
+  <div style="position: fixed; width: 100%; bottom: -20px;">
+    <span style="float: left; line-height: 35px; font-size: 13px; width: 165px; margin-left: 15px; color: #777;">cMock 管理平台 v1.0</span>
+    <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Library</a></li>
+      <li class="active">Data</li>
+    </ol>
+  </div>
+
+
+
+
+</body>
+</html>
+

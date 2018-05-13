@@ -1,0 +1,64 @@
+<%= javascript_include_tag  'member', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag    'member',  'data-turbolinks-track': 'reload' %>
+<script>
+    $("#roleManager").addClass("active");
+</script>
+<div style="min-height:100px;max-height: 800px; overflow: auto;">
+    <table id="userListTable" class="table table-hover  table-bordered" >
+    <thead  style="background: #f5f5f5;">
+      <tr  id="member_tr_th_style">
+        <!--<th >角色ID</th>-->
+        <th >角色名称</th>
+        <th >状态</th>
+        <th >操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for role in @roleList %>
+          <tr style="line-height: 40px;font-size: 13px;text-align: center;" id="roleLable_<%= role.getRoleId%>">
+            <!--<td><%= role.getRoleId %></td>-->
+            <td><%= role.getRoleName %></td>
+            <td><%=  case role.getRolestatus
+                    when "0" then "正常"
+                    when "1" then "关闭"
+                    else "异常"
+                  end %></td><td style="font-size:12px;" id="roleListOperation">
+              <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                <a class="green" href="javascript:void(0)" onclick="alert(111)">
+                  <i class="icon-pencil bigger-130"></i> 修改
+                </a>
+                <a id="roleDeleteBtn" class="red" href="javascript:void(0)" onclick="member.fn.roleDel(<%= role.getRoleId%>)">
+                  <i class="icon-trash bigger-130"></i> 删除
+                </a>
+              </div>
+            </td>
+          </tr>
+      <% end %>
+    </tbody>
+    </table>
+</div>
+
+<div style=" height: 60px; line-height: 60px; background: #eeeeee;">
+    <%= link_to "增加角色",{:controller => "sysmin",:action => "roleAdd"},{class:"btn",style:"margin-left: 15px;line-height: 18px;background-color: #438eb9 !important;border-color: #438eb9 !important;color: #fff !important;"}%>
+    <div style="float: right; margin-right: 15px;">
+      <nav aria-label="Page navigation" style="line-height: 60px; height: 60px;">
+        <ul class="pagination" style="line-height: 60px; height: 60px;  margin-top: 15px;">
+          <li class="disabled">
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="disabled"><a href="#">1</a></li>
+          <li class="disabled"><a href="#">2</a></li>
+          <li class="disabled"><a href="#">3</a></li>
+          <li class="disabled"><a href="#">4</a></li>
+          <li class="disabled"><a href="#">5</a></li>
+          <li class="disabled">
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+</div>

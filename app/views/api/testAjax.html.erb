@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <%= javascript_include_tag "api" %>
+</head>
+<body>
+
+<h1>What time is it?</h1>
+<div>
+  <%= button_to "del", {:controller =>'api',:action => 'projDel', :proj_id=>"40000007"}, remote: true,:method => "POST",form: { "data-type" => "json" } %><br>
+  <%= @_test.echoScript %>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<%= javascript_include_tag  'testmin', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag    'testmin',  'data-turbolinks-track': 'reload' %>
+<script>
+    $("#testDataManager").addClass("active");
+</script>
+
+
+<div style="min-height:100px;max-height: 800px; overflow: auto;">
+<table id="dataRuleListTable" class="table table-hover table-bordered" >
+    <thead style="background: #f5f5f5;">
+      <tr >
+        <th class="left" style="width: 80px;">计划任务<br>Job Name</th>
+        <th class="left" style="width: 80px;">所属项目<br>Project Name</th>
+        <th class="left" style="width: 80px;">创建人员<br>Owner</th>
+        <th class="left" style="width: 80px;">规则列表<br>Rule List</th>
+        <th class="left" style="width: 80px;">最后执行时间<br>Last Exec Time</th>
+        <th class="left" style="width: 80px;">执行人员<br>Exec User</th>
+        <th class="left" style="width: 80px;">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+        <% for job in @jobs_list %>
+          <tr style="line-height: 40px;font-size: 13px;"  id="jobRuleLi_<%= job.getJobId %>">
+            <td><%= job.getJobName %></td>
+            <td><%= @_proj_hashs[job.getProjectId.to_i] %></td>
+            <td><%= job.getJobOwnerId %></td>
+            <!--<td><%= job.getJobRuleIds %></td>-->
+            <td><% @jobsNameList[job.getJobId.to_i].each do |ruleName,i| %>
+                  <%= i+1 %>. <label><%= ruleName %></label><br>
+                <% end %>
+            </td>
+            <td><%= job.getLastExecTime %></td>
+            <td><%= job.getLastExecUserId %></td>
+            <td style="font-size:12px; padding:0;" id="roleListOperation">
+              <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons" style="height:40px !important;line-height:40px !important;">
+                <a class="green" href="javascript:void(0)" onclick="alert(111)" style="margin-left: 15px;">
+                  <i class="icon-pencil bigger-130"></i> 修改
+                </a>
+                <a id="roleDeleteBtn" class="red" href="javascript:void(0)" onclick="testmin.fn.jobRuleDel(<%= job.getJobId %>)">
+                  <i class="icon-trash bigger-130"></i> 删除
+                </a>
+              </div>
+              <div style="height:40px !important;line-height:40px !important;border-top:1px solid #eeeeee;">
+                <a id="roleDeleteBtn" class="red" href="javascript:void(0)" onclick="testmin.fn.execScript(<%=job.getJobId.to_i%>)" style="margin-left: 15px;">
+                  <i class="icon-trash bigger-130"></i> 任务执行
+                </a>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+    </tbody>
+  </table>
+
+
+</div>
+
+<div style=" height: 60px; line-height: 60px; background: #eeeeee;">
+    <%= link_to "增加任务",{:controller => "testmin",:action => "jobAdd"},{class:"btn",style:"margin-left: 15px;line-height: 18px;background-color: #438eb9 !important;border-color: #438eb9 !important;color: #fff !important;"}%>
+    <div style="float: right; margin-right: 15px;">
+      <nav aria-label="Page navigation" style="line-height: 60px; height: 60px;">
+        <ul class="pagination" style="line-height: 60px; height: 60px;  margin-top: 15px;">
+          <li class="disabled">
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="disabled"><a href="#">1</a></li>
+          <li class="disabled"><a href="#">2</a></li>
+          <li class="disabled"><a href="#">3</a></li>
+          <li class="disabled"><a href="#">4</a></li>
+          <li class="disabled"><a href="#">5</a></li>
+          <li class="disabled">
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+</div>

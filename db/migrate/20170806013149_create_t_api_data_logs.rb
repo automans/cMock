@@ -1,0 +1,3 @@
+class CreateTApiDataLogs < ActiveRecord::Migration[5.1]
+
+end

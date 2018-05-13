@@ -1,0 +1,135 @@
+<%= javascript_include_tag  'api', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag    'api',  'data-turbolinks-track': 'reload' %>
+
+<script>
+   $("#apiFaceManager").addClass("active");
+</script>
+
+<fieldset>
+  <legend>
+    <%= @interfaceProjInfo.getProjName %>
+  </legend>
+
+  <!--<div>
+      <lable style="height: 30px;line-height: 30px;font-size: 14px;">项目: <%= @interfaceProjInfo.getProjName %> </lable>
+  </div>-->
+  <div id="interfaceAdd">
+    <div style="border:1px solid #e3e1e1;">
+      <div style="margin-top:20px;"></div>
+      <div style="border-bottom:1px solid #e3e1e1;">
+      
+
+      <div class="form-group height30px">
+          <%= label_tag "接口名称：",nil, class:'col-sm-1 control-label no-padding-right',style:"line-height: 25px;min-width: 101px;" %>
+
+          <div>
+            <%= text_field_tag "tft_interface_name",nil,class:"col-xs-10 col-sm-5",style:"width:400px;background: #f9f9f9;",value:@interfaceApi.getApiName,readonly:""%>
+          </div>
+        </div>
+
+        <div class="form-group height30px">
+          <%= label_tag "接口地址：",nil, class:'col-sm-1 control-label no-padding-right',style:"line-height: 25px;min-width: 101px;" %>
+
+          <div >
+            <%= text_field_tag "tft_interface_name",nil,class:"col-xs-10 col-sm-5",style:"width:600px;background: #f9f9f9;",value:@interfaceApi.getApiUrl,readonly:""%>
+          </div>
+        </div>
+      </div>
+
+      <%= form_tag("apiParamDataSave",method: "post") do %>
+          <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+          <%= tag(:input, :type => "hidden", :name => "cur_request_url", :value => request.url) %>
+      <div style="overflow:auto;max-height: 430px;">
+        <table  class="table table-hover /*table-striped*/ table-bordered" style="white-space:nowrap;">
+          <thead style="background: #f5f5f5;">
+
+          <tr>
+            <th style="width:200px;text-align: left ">
+              案列编号<br>CaseId
+            </th>
+            <th style="width:200px;text-align: left ">
+              案列标题<br>CaseTitle
+            </th>
+            <% for apiParam in @interfaceApiParamInfo %>
+            <th style="text-align: center" title="<%= apiParam.getApiParamTitle %>" ><%= apiParam.getApiParamName %></th>
+            <% end %>
+            <th  style="text-align: left">响应代码<br>ResponseCode</th>
+            <th  style="text-align: left" >响应消息<br>reponseMsg</th>
+            <th  style="text-align: left" >说明<br>Remarks</th>
+            <th  style="text-align: left" >更新时间</th>
+            <th ></th>
+          </tr>
+          </thead>
+          <tbody id="apiParamDataAddTable">
+          <% for param_data in @interfaceApiParamDataList %>
+          
+          <tr id="interfaceParamData_<%= param_data['case_id']%>" >
+            <td class=""><%= param_data['case_id'] %></td>
+            <td class=""><%= param_data['case_title'] %></td>
+            <% for apiParam in @interfaceApiParamInfo %>
+                <td class="center"><%= (param_data[apiParam.getApiParamName].to_s.empty?) ? "null" : param_data[apiParam.getApiParamName] %></td>
+            <% end %>
+
+            <td class="left"><%= param_data['response_code'] %></td>
+            <td class="left"><%= param_data['response_msg'] %></td>
+            <td class="left"><%= param_data['remarks'] %></td>
+            <td class="left"><%= param_data['updated_at'].to_s[0,16] %></td>
+            <td class="left">
+              <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                <!--<a class="green" href="#">-->
+                  <!--<i class="icon-ok bigger-130" style="font-size:12px"> 保存</i>-->
+                <!--</a>-->
+                <a class="green" href="#">
+                  <i class="icon-pencil bigger-130" style="font-size:12px"> 修改</i>
+                </a>
+                <a class="red" href="javascript:void(0)" onclick="apiJs.fn.apiParamDataDel(<%= "'"%><%=param_data['case_id']%><%= "'"%>,<%= @interfaceApi.getApiId %>)">
+                  <i class="icon-pencil bigger-130"  style="font-size: 12px;"> 删除</i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          <% end %>
+
+
+
+
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<div class="clearfix form-actions height80px">
+      <div class="col-md-offset-3 col-md-9">
+        <a class="btn btn-info"  style="background-color: #438eb9 !important;width:90px;border-color: #438eb9 !important;" type="button" style="width: 90px;" id="apiParamDataAddButton" href="javascript:void(0)" onclick="apiJs.fn.addNewParamDataLable(<%= @interfaceApi.getApiId%>,<%= @param_alias_name_list %>)">添加</a>&nbsp; &nbsp; &nbsp;
+        <%= link_to "返回",{:controller => "api",:action => "face",:proj_id=>@interfaceProjInfo.getProjId},{:class=>"btn",:style => "width:90px"} %>
+      </div>
+    </div>-->
+
+    <div class="clearfix form-actions height80px " style="    background: #eeeeee;">
+      <div class="col-md-offset-3 col-md-9" style="    line-height: 75px; margin-left: 183px;">
+        <!--<%= submit_tag "保存",class:"btn btn-primary",style:"width: 90px;" %>-->
+        <a class="btn btn-primary"  style="background-color: #438eb9 !important;width:90px;border-color: #438eb9 !important;"   id="apiParamDataAddButton" href="javascript:void(0)" onclick="apiJs.fn.addNewParamDataLable(<%= @interfaceApi.getApiId%>,<%= @param_alias_name_list %>)">添加</a>
+        <%= link_to "返回",{:controller => "api",:action => "face",:proj_id=>@interfaceProjInfo.getProjId},{:class=>"btn btn-default",:style => "width:90px"} %>
+      </div>
+    </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+</fieldset>

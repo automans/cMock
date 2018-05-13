@@ -1,0 +1,139 @@
+<%= javascript_include_tag  'api', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag    'api',  'data-turbolinks-track': 'reload' %>
+<script>
+   $("#apiFaceManager").addClass("active");
+</script>
+
+<fieldset>
+  <legend>
+    <%= @interfaceProjInfo.getProjName %>
+  </legend>
+
+  <!--<div>
+      <lable style="height: 30px;line-height: 30px;font-size: 14px;">项目: <%= @interfaceProjInfo.getProjName %> </lable>
+  </div>-->
+  <div id="interfaceParamAdd">
+    <div style="border:1px solid #e3e1e1;">
+      <div style="margin-top:20px;"></div>
+      <div style="border-bottom:1px solid #e3e1e1;">
+        <div class="form-group height30px" style="display: none">
+          <%= label_tag "接口ID：",nil, class:'col-sm-3 control-label no-padding-right width60px' %>
+          <div>
+            <%= text_field_tag "tft_interface_id",nil,class:"col-xs-10 col-sm-5",style:"width:550px",value:@interfaceApi.getApiId,readonly:""%>
+          </div>
+        </div>
+        <div class="form-group height30px">
+          <%= label_tag "接口名称：",nil, class:'col-sm-1 control-label no-padding-right',style:"line-height: 25px;min-width: 101px;" %>
+
+          <div>
+            <%= text_field_tag "tft_interface_name",nil,class:"col-xs-10 col-sm-5",style:"width:400px;background: #f9f9f9;",value:@interfaceApi.getApiName,readonly:""%>
+          </div>
+        </div>
+
+        <div class="form-group height30px">
+          <%= label_tag "接口地址：",nil, class:'col-sm-1 control-label no-padding-right',style:"line-height: 25px;min-width: 101px;" %>
+
+          <div >
+            <%= text_field_tag "tft_interface_name",nil,class:"col-xs-10 col-sm-5",style:"width:600px;background: #f9f9f9;",value:@interfaceApi.getApiUrl,readonly:""%>
+          </div>
+        </div>
+      </div>
+
+
+
+      <%= form_tag("apiParamSave",method: "post") do %>
+          <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+          <%= tag(:input, :type => "hidden", :name => "cur_request_url", :value => request.url) %>
+      <div style="overflow:auto;max-height: 430px;">
+        <table class="table table-hover /*table-striped*/ table-bordered" style="white-space:nowrap;">
+          <thead style="background: #f5f5f5;">
+          <tr>
+            <!--<th class="center" role="columnheader" rowspan="1" colspan="1" aria-label="" style="width: 49px;"> <label> No. </label> </th>-->
+            <th  style="text-align: left;min-width:140px;" >参数名<br>Param Name</th>
+            <th  style="text-align: left;min-width:145px;" >参数描述<br>Param Desc</th>
+            <th  style="text-align: left;min-width:145px;" >标准值<br>Normal Value</th>
+            <th  style="text-align: left;min-width:145px;" >最大字长<br>Max Length</th>
+            <th  style="text-align: left;min-width:145px;" >最小字长<br>Min Length</th>
+            <th  style="text-align: left;min-width:145px;" >是否必填？<br>Is Required?</th>
+            <th  style="text-align: left;min-width:145px;" >是否为数字？<br>Is Number?</th>
+            <th  style="text-align: left;min-width:145px;" >是否含特殊字符？<br>Special Char?</th>
+            <th style="width:111px;"></th>
+          </tr>
+          </thead>
+
+          <tbody id="apiParamAddTable">
+
+
+          <% for apiParamInfo in @interfaceApiParamInfo  %>
+          <tr id="interfaceParamLi_<%= apiParamInfo.getApiParamAliasName %>">
+            <!--<td class="center">1</td>-->
+
+            <td class=""> <%= apiParamInfo.getApiParamName %></td>
+            <td class=""> <%= apiParamInfo.getApiParamTitle %></td>
+            <td class=""><%= apiParamInfo.getApiParamValue %></td>
+            <td class=""><%= apiParamInfo.getApiParamMaxLength %></td>
+            <td class=""><%= apiParamInfo.getApiParamMinLength %></td>
+            <td class=""><%= case apiParamInfo.getApiParamRequireFlag
+                                      when 1 then "Yes"
+                                      when 2 then "No"
+                                      else "-"
+                                  end %></td>
+            <td class=""><%= case apiParamInfo.getApiParamNumberFlag
+                                    when 1 then "Yes"
+                                    when 2 then "No"
+                                    else "-"
+                                  end %></td>
+            <td class=""><%= case apiParamInfo.getApiParamSpecialCharFlag
+                                  when 1 then "Yes"
+                                    when 2 then "No"
+                                    else "-"
+                                  end %></td>
+
+            <td class="">
+              <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                <a class="green " href="javascript:void(0)" onclick="alert(1)">
+                  <i class="icon-pencil bigger-130" style="font-size:13px;font-style: normal;"> 修改</i>
+                </a>
+                <a class="red" href="javascript:void(0)" onclick="apiJs.fn.apiParamDel(<%= "'"%><%= apiParamInfo.getApiParamAliasName %><%= "'"%>,<%= apiParamInfo.getApiId %>)">
+                  <i class="icon-pencil bigger-130"  style="font-size: 13px;font-style: normal;"> 删除</i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          <% end %>
+
+
+
+          </tbody>
+
+        </table>
+      </div>
+      <% end %>
+
+
+
+
+
+
+
+    <!--<div class="clearfix form-actions height80px">
+      <div class="col-md-offset-3 col-md-9">
+        <a class="btn btn-info"  style="background-color: #438eb9 !important;width:90px;border-color: #438eb9 !important;" type="button" style="width: 90px;" id="apiParamAddButton" href="javascript:void(0)" onclick="apiJs.fn.addNewParamLable(<%= @interfaceApi.getApiId%>)">添加</a>&nbsp; &nbsp; &nbsp;
+        <%= link_to "返回",{:controller => "api",:action => "face",:proj_id=>@interfaceProjInfo.getProjId},{:class=>"btn",:style => "width:90px"} %>
+      </div>
+    </div>-->
+
+    <div class="clearfix form-actions height80px " style="    background: #eeeeee;">
+      <div class="col-md-offset-3 col-md-9" style="    line-height: 75px; margin-left: 183px;">
+        <!--<%= submit_tag "保存",class:"btn btn-primary",style:"width: 90px;" %>-->
+        <a class="btn btn-primary"  style="background-color: #438eb9 !important;width:90px;border-color: #438eb9 !important;"   id="apiParamAddButton" href="javascript:void(0)" onclick="apiJs.fn.addNewParamLable(<%= @interfaceApi.getApiId%>)">添加</a>
+        <%= link_to "返回",{:controller => "api",:action => "face",:proj_id=>@interfaceProjInfo.getProjId},{:class=>"btn btn-default",:style => "width:90px"} %>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+
+</fieldset>
